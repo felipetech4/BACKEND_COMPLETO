@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document("produtos")
 public class Produto 
 {
+    //teste
     @Id
     private String id;
     private String nome;
