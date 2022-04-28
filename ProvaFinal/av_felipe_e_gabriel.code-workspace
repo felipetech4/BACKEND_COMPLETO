@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"name": "produtos-ms",
+			"path": "produtos-ms"
+		}
+	],
+	"settings": {
+		"java.configuration.updateBuildConfiguration": "automatic"
+	}
+}
