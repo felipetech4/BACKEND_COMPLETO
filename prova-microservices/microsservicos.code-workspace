@@ -9,13 +9,6 @@
 			"path": "zuul-server"
 		},
 		{
-			"name": "animais-ms",
-			"path": "animais-ms"
-		},
-		{
-			"path": "pessoas-ms"
-		},
-		{
 			"name": "config-server",
 			"path": "config-server"
 		},
