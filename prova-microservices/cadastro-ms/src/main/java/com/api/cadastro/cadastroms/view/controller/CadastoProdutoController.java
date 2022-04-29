@@ -77,8 +77,15 @@ public class CadastoProdutoController {
 
     }
 
-    @PutMapping("/modificar-estoque/{codigo}/{novaQuantidade}")
-    public boolean putStock (@PathVariable String codigo, @PathVariable int novaQuantidade) {
-        return service.putStock(codigo,novaQuantidade);
+    @PutMapping("/modificar-estoque/{codigo}/{adicionar}/{novaQuantidade}")
+    public boolean putStock (@PathVariable String codigo,@PathVariable boolean adicionar, @PathVariable int novaQuantidade) {
+        Optional<Boolean> serviceResponse = service.putStock(codigo,adicionar,novaQuantidade);
+
+        if(serviceResponse.isEmpty()) {
+           return false;
+        }
+
+        return serviceResponse.get();
+
     }
 }

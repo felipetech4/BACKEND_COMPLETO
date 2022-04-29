@@ -8,7 +8,7 @@ funções:
 	venda-ms:
 		realizar venda = feito
 		buscar venda por id = feito
-		listar todas as vendas por codigo
+		listar todas as vendas por codigo = feito
 		listar todas as vendas (sem os produtos) = feito
 		listar todas as vendas (com os produtos) opcional
 		listar vendas por periodo

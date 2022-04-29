@@ -17,6 +17,6 @@ public interface ProdutoFeingClient {
     Optional<Produto> getProduto (@PathVariable String codigo);
 
 
-    @PutMapping(path="/api/cadastro/modificar-estoque/{codigo}/{novaQuantidade}")
-    public boolean putStock (@PathVariable String codigo, @PathVariable int novaQuantidade);
+    @PutMapping(path="/api/cadastro/modificar-estoque/{codigo}/{adicionar}/{novaQuantidade}")
+    public boolean putStock (@PathVariable String codigo,@PathVariable boolean adicionar, @PathVariable int novaQuantidade);
 }

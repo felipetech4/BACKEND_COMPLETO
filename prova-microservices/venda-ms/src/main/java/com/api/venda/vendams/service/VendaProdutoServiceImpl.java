@@ -53,7 +53,19 @@ public class VendaProdutoServiceImpl implements VendaProdutoService {
 
         return Optional.of(ListVendaDto);
     
-    }   
+    }
+
+    @Override
+    public Optional<List<VendaDto>> listAllByDateInterval (String data1, String data2) {
+        if (repository.count() < 1) {
+            return Optional.empty();
+        }
+
+        List<Venda> repositoryListResponse = repository.findAll();
+         
+        return null;
+
+    }
 
 
     @Override
@@ -73,7 +85,7 @@ public class VendaProdutoServiceImpl implements VendaProdutoService {
 
     @Override
     public Optional<VendaDto> postUnique (VendaDto venda) {
-        boolean operationSucces = cadastro.putStock(venda.getCodigo(), venda.getQuantidadeVendida());
+        boolean operationSucces = cadastro.putStock(venda.getCodigo(),false /*false para retirar do estoque*/, venda.getQuantidadeVendida());
         
         // se não foi possivel retirar do estoque a venda é cancelada
         if (!operationSucces) {

@@ -46,7 +46,7 @@ public class VendaProdutoController {
     
     }
 
-    @GetMapping("pesquisar-por-codigo/{codigo}")
+    @GetMapping("/pesquisar-por-codigo/{codigo}")
     public ResponseEntity<List<VendaResponse>> getAllByCodigo (@PathVariable String codigo) {
         Optional<List<VendaDto>> serviceResponse = service.listAllByCodigo(codigo);
 
