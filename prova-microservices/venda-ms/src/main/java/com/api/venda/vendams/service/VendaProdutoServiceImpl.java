@@ -41,6 +41,22 @@ public class VendaProdutoServiceImpl implements VendaProdutoService {
 
 
     @Override
+    public Optional<List<VendaDto>> listAllByCodigo (String codigo) {
+        Optional<List<Venda>> repositoryListResponse = repository.findAllByCodigo(codigo);
+    
+        if (repositoryListResponse.isEmpty()) {
+            return Optional.empty();
+        }
+        
+        List<VendaDto> ListVendaDto = repositoryListResponse.get().stream()
+        .map(dat -> MAPPER.map(dat, VendaDto.class)).collect(Collectors.toList());
+
+        return Optional.of(ListVendaDto);
+    
+    }   
+
+
+    @Override
     public Optional<VendaDto> listUnique (String id) {
 
         Optional<Venda> repositoryResponse = repository.findById(id);
