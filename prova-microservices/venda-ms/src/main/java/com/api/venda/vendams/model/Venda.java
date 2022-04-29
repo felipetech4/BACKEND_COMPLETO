@@ -1,7 +1,5 @@
 package com.api.venda.vendams.model;
 
-import java.time.LocalDateTime;
-
 import com.api.venda.vendams.shared.Produto;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
