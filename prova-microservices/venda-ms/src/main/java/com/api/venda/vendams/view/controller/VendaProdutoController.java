@@ -46,6 +46,20 @@ public class VendaProdutoController {
     
     }
 
+    @GetMapping("pesquisar-por-codigo/{codigo}")
+    public ResponseEntity<List<VendaResponse>> getAllByCodigo (@PathVariable String codigo) {
+        Optional<List<VendaDto>> serviceResponse = service.listAllByCodigo(codigo);
+
+        if (serviceResponse.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
+        List<VendaResponse> vendaResponseList = serviceResponse.get().stream()
+        .map(dat -> MAPPER.map(dat, VendaResponse.class)).collect(Collectors.toList());
+
+        return new ResponseEntity<>(vendaResponseList, HttpStatus.FOUND);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<VendaResponse> getUnique (@PathVariable String id) {
         Optional<VendaDto> serviceResponse = service.listUnique(id);
