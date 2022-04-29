@@ -1,0 +1,33 @@
+funções: 
+	cadastro-ms:
+ 		pesquisar produto por id = feito
+		listar todos os produtos = feito
+		incluir produto = feito
+		alterar estoque = feito
+		
+	venda-ms:
+		realizar venda = feito
+		buscar venda por id = feito
+		listar todas as vendas por codigo
+		listar todas as vendas (sem os produtos) = feito
+		listar todas as vendas (com os produtos) opcional
+		listar vendas por periodo
+		
+	opcionais:
+		excluir venda
+		alterar preco de produto
+		adicionar um atributo total em venda
+		fazer um config em cadastro-ms e venda-ms pra tirar o classpath do mongo
+		
+validações:
+	ver se quantidadeVendida < quantidadeEstoque = feito
+	todos os input de cadastro e venda = feito (eu acho é bom testar)
+
+
+repositorio atual no mongo: Desafio
+collections: produto, venda
+
+
+lembrar de mexer na properties de config-server
+
+	
