@@ -4,6 +4,8 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
+import com.api.venda.vendams.view.handlers.DateValidation;
+
 public class VendaRequest {
     
     @NotBlank(message = "não pode estar em branco")
@@ -11,6 +13,7 @@ public class VendaRequest {
     private String codigo;
     @Min(1) 
     private int quantidadeVendida;
+    @DateValidation
     private String dataVenda;
     
     public String getCodigo() {
@@ -31,5 +34,6 @@ public class VendaRequest {
     public void setDataVenda(String dataVenda) {
         this.dataVenda = dataVenda;
     }
+
 
 }

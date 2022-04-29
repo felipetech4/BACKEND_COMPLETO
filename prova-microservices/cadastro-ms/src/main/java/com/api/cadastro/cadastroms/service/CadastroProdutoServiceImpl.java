@@ -1,5 +1,6 @@
 package com.api.cadastro.cadastroms.service;
 
+import java.lang.StackWalker.Option;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -70,23 +71,30 @@ public class CadastroProdutoServiceImpl implements CadastroProdutoService {
     
 
     @Override
-    public Boolean putStock(String codigo, int removerEstoque) {
+    public Optional<Boolean> putStock(String codigo, boolean adicionar, int novaQuantidade) {
         
         Optional<Produto> repositoryResponse = repository.findByCodigo(codigo);
-
+        
         if (repositoryResponse.isEmpty()) {
-            return false;
+            return Optional.of(false);
         }
-
-        boolean modResult = repositoryResponse.get().removerEstoque(removerEstoque);
+        
+        // se a opção adicionar estiver ativa ele adiciona e sai do metodo
+        if(adicionar) {
+            repositoryResponse.get().adicionarEstoque(novaQuantidade);
+            repository.save(repositoryResponse.get());
+            return Optional.empty();    
+        }
+        
+        boolean modResult = repositoryResponse.get().removerEstoque(novaQuantidade);
 
         if (!modResult) {
-            return false;
+            return Optional.of(false);
         }
 
         repository.save(repositoryResponse.get());
 
-        return true;
+        return Optional.of(true);
     }
 
 

@@ -22,6 +22,10 @@ public class Produto {
         return true;
 
     }
+
+    public void adicionarEstoque (int quantidadeAdicionar) {
+        this.quantidadeEstoque += quantidadeAdicionar;
+    }
     
     public int getQuantidadeEstoque() {
         return quantidadeEstoque;

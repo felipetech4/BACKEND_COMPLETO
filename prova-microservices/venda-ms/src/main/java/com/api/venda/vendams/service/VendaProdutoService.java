@@ -9,6 +9,7 @@ public interface VendaProdutoService {
     
     Optional<List<VendaDto>> listAll ();
     Optional<List<VendaDto>> listAllByCodigo (String codigo);
+    Optional<List<VendaDto>> listAllByDateInterval (String primeiraData, String segundaData);
     Optional<VendaDto> listUnique (String id);
     Optional<VendaDto> postUnique (VendaDto venda);
 }
