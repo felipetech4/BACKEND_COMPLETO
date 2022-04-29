@@ -1,5 +1,6 @@
 package com.api.venda.vendams.view.controller;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -51,7 +52,30 @@ public class VendaProdutoController {
         Optional<List<VendaDto>> serviceResponse = service.listAllByCodigo(codigo);
 
         if (serviceResponse.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        List<VendaResponse> vendaResponseList = serviceResponse.get().stream()
+        .map(dat -> MAPPER.map(dat, VendaResponse.class)).collect(Collectors.toList());
+
+        return new ResponseEntity<>(vendaResponseList, HttpStatus.FOUND);
+    }
+
+    @GetMapping("/pesquisar-por-intervalo/{data1}/{data2}")
+    public ResponseEntity<List<VendaResponse>> getAllByInterval ( @PathVariable String data1, @PathVariable String data2) throws ParseException {        
+        String fixedDate1 = data1.replaceAll("-", "/");
+        String fixedDate2 = data2.replaceAll("-", "/");
+
+        boolean datesValidated = validarData(fixedDate2) && validarData(fixedDate2);
+        
+        if (!datesValidated) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        Optional<List<VendaDto>> serviceResponse = service.listAllByDateInterval(fixedDate1, fixedDate2);
+
+        if (serviceResponse.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
         List<VendaResponse> vendaResponseList = serviceResponse.get().stream()
@@ -71,6 +95,7 @@ public class VendaProdutoController {
         VendaResponse vendaResponseUnique = MAPPER.map(serviceResponse.get(), VendaResponse.class);
         
         return new ResponseEntity<>(vendaResponseUnique, HttpStatus.FOUND);
+        
     }
 
 
@@ -88,6 +113,30 @@ public class VendaProdutoController {
 
         return new ResponseEntity<>(vendaDetailsRes, HttpStatus.CREATED);
          
+    }
+
+
+    private static boolean validarData (String data) {
+
+        boolean dataValida = data.matches("^(\\d{2})[/](\\d{2})[/](\\d{4})$");
+            
+            if (!dataValida) { 
+                return false;
+            }
+            
+            String[] arrayData = data.split("/");
+            
+            int dia = Integer.parseInt(arrayData[0]);
+            int mes = Integer.parseInt(arrayData[1]);
+            int ano = Integer.parseInt(arrayData[2]);
+            
+            if ((dia > 0 && dia <= 31) &&
+            (mes > 0 && mes <= 12) &&
+            (ano > 1900 && ano <= 2050)) {
+                return true;
+            } else {
+                return false;
+            }
     }
     
 

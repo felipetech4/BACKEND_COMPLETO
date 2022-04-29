@@ -1,7 +1,9 @@
 package com.api.venda.vendams.service;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -25,6 +27,8 @@ public class VendaProdutoServiceImpl implements VendaProdutoService {
     private  VendaProdutoRepository repository;
     @Autowired
     private  ProdutoFeingClient cadastro;
+
+    private final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
     @Override
     public Optional<List<VendaDto>> listAll() {
@@ -56,14 +60,42 @@ public class VendaProdutoServiceImpl implements VendaProdutoService {
     }
 
     @Override
-    public Optional<List<VendaDto>> listAllByDateInterval (String data1, String data2) {
+    public Optional<List<VendaDto>> listAllByDateInterval (String data1, String data2) throws ParseException {
         if (repository.count() < 1) {
             return Optional.empty();
         }
 
         List<Venda> repositoryListResponse = repository.findAll();
-         
-        return null;
+
+        Date dateData1 = sdf.parse(data1);
+        Date dateData2 = sdf.parse(data2);
+        
+        List<VendaDto> datesInInterval = repositoryListResponse.stream().filter(e-> {
+
+            Date VendaDate = new Date();
+            try {
+                VendaDate = sdf.parse(e.getDataVenda());
+            } catch (ParseException e1) {
+                e1.printStackTrace();
+            }
+
+            // checando para ver se esta dentro do periodo
+            if ((VendaDate.compareTo(dateData1) >=  0) && (VendaDate.compareTo(dateData2) <=  0)) {
+                return true;
+            } else 
+            if ((VendaDate.compareTo(dateData2) >=  0) && (VendaDate.compareTo(dateData1) <=  0)) {
+                return true;
+            } else {
+                return false;
+            }
+        }).map(e -> MAPPER.map(e,VendaDto.class)).collect(Collectors.toList());
+        
+
+        if (datesInInterval.size() < 1) {
+            return Optional.empty();
+        }
+
+        return Optional.of(datesInInterval);
 
     }
 
@@ -100,7 +132,7 @@ public class VendaProdutoServiceImpl implements VendaProdutoService {
         
         // caso não tenha data pre-definida é cadastrado a data atual
         if(vendaRequest.getDataVenda() == null || vendaRequest.getDataVenda().isBlank() || vendaRequest.getDataVenda().isEmpty()) {    
-            String actualDate = new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime());
+            String actualDate = sdf.format(Calendar.getInstance().getTime());
             
             vendaRequest.setDataVenda(actualDate);
         }

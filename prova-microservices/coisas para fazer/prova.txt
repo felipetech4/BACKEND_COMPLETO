@@ -3,7 +3,7 @@ funções:
  		pesquisar produto por id = feito
 		listar todos os produtos = feito
 		incluir produto = feito
-		alterar estoque = feito
+		alterar estoque = feito (adicionar e remover)
 		
 	venda-ms:
 		realizar venda = feito
@@ -11,7 +11,7 @@ funções:
 		listar todas as vendas por codigo = feito
 		listar todas as vendas (sem os produtos) = feito
 		listar todas as vendas (com os produtos) opcional
-		listar vendas por periodo
+		listar vendas por periodo = feito
 		
 	opcionais:
 		excluir venda
