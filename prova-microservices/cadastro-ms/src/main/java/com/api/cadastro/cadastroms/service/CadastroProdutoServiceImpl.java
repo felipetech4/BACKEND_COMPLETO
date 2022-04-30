@@ -78,7 +78,7 @@ public class CadastroProdutoServiceImpl implements CadastroProdutoService {
             return Optional.of(false);
         }
         
-        // se a opção adicionar estiver ativa ele adiciona e sai do metodo
+        // se a opção adicionar estiver ativa ele adiciona e sai do método
         if(adicionar) {
             repositoryResponse.get().adicionarEstoque(novaQuantidade);
             repository.save(repositoryResponse.get());

@@ -1,27 +1,27 @@
 funções: 
 	cadastro-ms:
- 		pesquisar produto por id = feito
-		listar todos os produtos = feito
-		incluir produto = feito
-		alterar estoque = feito (adicionar e remover)
+ 		pesquisar produto por id = OK
+		listar todos os produtos = OK
+		incluir produto = OK
+		alterar estoque = OK (adicionar e remover)
 		
 	venda-ms:
-		realizar venda = feito
-		buscar venda por id = feito
-		listar todas as vendas por codigo = feito
-		listar todas as vendas (sem os produtos) = feito
+		realizar venda = OK
+		buscar venda por id = OK
+		listar todas as vendas por codigo = OK
+		listar todas as vendas (sem os produtos) = OK
 		listar todas as vendas (com os produtos) opcional
-		listar vendas por periodo = feito
+		listar vendas por periodo = OK
 		
 	opcionais:
 		excluir venda
 		alterar preco de produto
 		adicionar um atributo total em venda
-		fazer um config em cadastro-ms e venda-ms pra tirar o classpath do mongo
+		fazer um config em cadastro-ms e venda-ms pra tirar o classpath do mongo = OK
 		
 validações:
-	ver se quantidadeVendida < quantidadeEstoque = feito
-	todos os input de cadastro e venda = feito (eu acho é bom testar)
+	ver se quantidadeVendida < quantidadeEstoque = OK
+	todos os input de cadastro e venda = OK (eu acho é bom testar)
 
 
 repositorio atual no mongo: Desafio
@@ -30,4 +30,7 @@ collections: produto, venda
 
 lembrar de mexer na properties de config-server
 
+DUVIDAS:
+método put modifcar estoque é necessário?
+método get pesquisar por intervalo como usar?
 	

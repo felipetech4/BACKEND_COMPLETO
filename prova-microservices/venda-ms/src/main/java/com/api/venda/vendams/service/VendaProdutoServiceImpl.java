@@ -24,9 +24,9 @@ public class VendaProdutoServiceImpl implements VendaProdutoService {
     private final ModelMapper  MAPPER = new ModelMapper();
     
     @Autowired
-    private  VendaProdutoRepository repository;
+    private VendaProdutoRepository repository;
     @Autowired
-    private  ProdutoFeingClient cadastro;
+    private ProdutoFeingClient cadastro;
 
     private final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -37,10 +37,10 @@ public class VendaProdutoServiceImpl implements VendaProdutoService {
             return Optional.empty();
         }
         
-        List<VendaDto> ListVendaDto = repository.findAll().stream()
+        List<VendaDto> listVendaDto = repository.findAll().stream()
         .map(dat -> MAPPER.map(dat, VendaDto.class)).collect(Collectors.toList());
 
-        return Optional.of(ListVendaDto);
+        return Optional.of(listVendaDto);
     }
 
 
@@ -52,10 +52,10 @@ public class VendaProdutoServiceImpl implements VendaProdutoService {
             return Optional.empty();
         }
         
-        List<VendaDto> ListVendaDto = repositoryListResponse.get().stream()
+        List<VendaDto> listVendaDto = repositoryListResponse.get().stream()
         .map(dat -> MAPPER.map(dat, VendaDto.class)).collect(Collectors.toList());
 
-        return Optional.of(ListVendaDto);
+        return Optional.of(listVendaDto);
     
     }
 

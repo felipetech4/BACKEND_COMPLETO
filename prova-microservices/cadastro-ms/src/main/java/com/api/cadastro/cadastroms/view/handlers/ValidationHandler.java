@@ -25,7 +25,7 @@ public class ValidationHandler extends ResponseEntityExceptionHandler {
         final List<String> listaErros = new ArrayList<>();
 
         for (FieldError fe : erros) {
-            // nome do atributo que] deu erro mais a mensagem do erro
+            // nome do atributo que deu erro mais a mensagem do erro
             listaErros.add(fe.getField() + " " + fe.getDefaultMessage());
         }
 
