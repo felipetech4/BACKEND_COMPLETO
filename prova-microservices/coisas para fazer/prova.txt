@@ -1,26 +1,28 @@
 mapeamento das api:
 	cadastro-ms:
-			|
-			|
-			|
-			|
-			|
-			|
-			|
+			  |
+			  |
+			  |
+			  |
+			  |
+			  |
+			  |
 	venda-ms:
-		POST| adicionar uma venda    |
-		GET | exibir todas as vendas |
-		GET |
-		GET	|
-			|
-			|
-			|
-
-
-
-
-
-
+		POST  | adicionar uma venda       | venda-ms/api/venda/adicionar
+			ex:
+				{
+    				"codigo": "{codigo do produto a ser vendido}", // @NotEmpty @NotBlank
+    				"quantidadeVendida": 1, // min (1)
+    				"dataVenda": null // pode ser passado uma data (dd/MM/yyyy) ou não (considera data atual), se for passado qualquer diferente de (null, "", " ") 
+					sera considerado data invalida
+				}
+		GET   | exibir todas as vendas por codigo  				  | venda-ms/api/venda/pesquisar-por-codigo/{codigo}
+		GET   | exibir todas as vendas com produto 				  | bota a url aqui felipe
+		GET   | exibir vendas por periodo			 			  | venda-ms/api/venda/pesquisar-por-intervalo/{data1}/{data2} ex:31-11-2001
+		GET	  | exibir venda unica por id			 			  | venda-ms/api/venda/{id}
+		GET	  | exibir todas as vendas sem produto  			  | venda-ms/api/venda
+		DELETE| cancelar uma venda (produto volta para estoque)   | venda-ms/api/venda/cancelar/{id} 
+		DELETE| deletar uma venda (produto não volta ara estoque) | venda-ms/api/venda/deletar/{id}
 
 funções: 
 	cadastro-ms:
