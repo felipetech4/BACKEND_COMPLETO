@@ -1,3 +1,27 @@
+mapeamento das api:
+	cadastro-ms:
+			|
+			|
+			|
+			|
+			|
+			|
+			|
+	venda-ms:
+		POST| adicionar uma venda    |
+		GET | exibir todas as vendas |
+		GET |
+		GET	|
+			|
+			|
+			|
+
+
+
+
+
+
+
 funções: 
 	cadastro-ms:
  		pesquisar produto por id = OK
@@ -16,10 +40,11 @@ funções:
 		
 	opcionais:
 		fazer um config em cadastro-ms e venda-ms pra tirar o classpath do mongo = OK
-		excluir venda = OK (falta adicionar no estoque)
+		excluir venda = OK
+		cancelar venda = OK (falta adicionar no estoque)
 		alterar preco de produto = OK (fiz um put geral)
-		listar todas as vendas (com os produtos) opcional
-		adicionar um atributo total em venda = em progresso
+		listar todas as vendas (com os produtos) opcional (felipe)
+		adicionar um atributo total em venda = em progresso (gabriel)
 		
 validações:
 	ver se quantidadeVendida < quantidadeEstoque = OK

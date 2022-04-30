@@ -116,9 +116,14 @@ public class VendaProdutoController {
         
     }
     
+    @DeleteMapping("/cancelar/{id}")
+    public ResponseEntity<Optional<String>> cancelUnique(@PathVariable String id) {
+        return new ResponseEntity<>(service.cancelById(id), HttpStatus.OK);
+    }
+
     @DeleteMapping("/deletar/{id}")
-    public ResponseEntity <Optional<String>> deleteUnique(@PathVariable String id) {
-        return new ResponseEntity<>(service.deleteById(id), HttpStatus.OK);
+    public ResponseEntity<Optional<String>> deleteUnique(@PathVariable String id) {
+        return new ResponseEntity<>(service.cancelById(id), HttpStatus.OK);
     }
 
     private static boolean validarData (String data) {

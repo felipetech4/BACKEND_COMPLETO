@@ -143,11 +143,28 @@ public class VendaProdutoServiceImpl implements VendaProdutoService {
     }
     
     @Override
-    public Optional <String> deleteById(String id) 
+    public Optional <String> cancelById(String id) 
     {
-        Optional <Venda> venda = repository.findById(id);
+        Optional<Venda> venda = repository.findById(id);
         if (venda.isPresent())
         {
+            cadastro.putStock(venda.get().getCodigo(), true, venda.get().getQuantidadeVendida());
+
+            repository.deleteById(id);
+            return Optional.of(String.format("REGISTRO DA VENDA: '%s' DELETADO COM SUCESSO!", 
+            venda.get().getId()));
+        }
+        return Optional.of("REGISTRO INFORMADO NÃO EXISTE");
+    }
+
+    @Override
+    public Optional <String> deleteById(String id) 
+    {
+        Optional<Venda> venda = repository.findById(id);
+        if (venda.isPresent())
+        {
+            cadastro.putStock(venda.get().getCodigo(), true, venda.get().getQuantidadeVendida());
+
             repository.deleteById(id);
             return Optional.of(String.format("REGISTRO DA VENDA: '%s' DELETADO COM SUCESSO!", 
             venda.get().getId()));
