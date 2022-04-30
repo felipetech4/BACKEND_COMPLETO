@@ -87,6 +87,7 @@ public class CadastroProdutoServiceImpl implements CadastroProdutoService {
         
         boolean modResult = repositoryResponse.get().removerEstoque(novaQuantidade);
 
+        // retorna falso se não removeu do estoque e true se removeu
         if (!modResult) {
             return Optional.of(false);
         }
@@ -97,13 +98,18 @@ public class CadastroProdutoServiceImpl implements CadastroProdutoService {
     }
 
     @Override
-    public ProdutoDto putProduto(String id, ProdutoDto produtoDto) 
+    public Optional<ProdutoDto> putProduto(String id, ProdutoDto produtoDto) 
     {
         Produto produto = MAPPER.map(produtoDto, Produto.class);
         produto.setId(id);
-        repository.save(produto);
-        ProdutoDto dto = MAPPER.map(produto, ProdutoDto.class);
-        return dto;
+        
+        if (!repository.existsById(id)) {
+            return Optional.empty();
+        }
+        
+        Produto repositoryResponse = repository.save(produto);
+        ProdutoDto produtoDtoResponse = MAPPER.map(repositoryResponse, ProdutoDto.class);
+        return Optional.of(produtoDtoResponse);
     }
 
     @Override

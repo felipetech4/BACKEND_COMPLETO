@@ -79,27 +79,32 @@ public class CadastoProdutoController {
     }
 
     @PutMapping("/modificar-estoque/{codigo}/{adicionar}/{novaQuantidade}")
-    public boolean putStock (@PathVariable String codigo,@PathVariable boolean adicionar, @PathVariable int novaQuantidade) {
+    public Optional<Boolean> putStock (@PathVariable String codigo,@PathVariable boolean adicionar, @PathVariable int novaQuantidade) {
         Optional<Boolean> serviceResponse = service.putStock(codigo,adicionar,novaQuantidade);
 
         if(serviceResponse.isEmpty()) {
-           return false;
+           return Optional.empty();
         }
 
-        return serviceResponse.get();
+        return serviceResponse;
 
     }
 
-    @PutMapping(value = "/{id}")
-    public ResponseEntity <ProdutoResponse> putProduto(@PathVariable String id, @RequestBody @Valid ProdutoRequest produtoRequest)
+    @PutMapping("alterar/{id}")
+    public ResponseEntity<ProdutoResponse> putProduto(@PathVariable String id, @RequestBody @Valid ProdutoRequest produtoRequest)
     {
-        ProdutoDto produtoDto = MAPPER.map(produtoRequest, ProdutoDto.class);
-        produtoDto = service.putProduto(id, produtoDto);
-        ProdutoResponse produtoResponse = MAPPER.map(produtoDto, ProdutoResponse.class);
+        ProdutoDto produtoDtoReq = MAPPER.map(produtoRequest, ProdutoDto.class);
+        Optional<ProdutoDto> produtoDtoRes = service.putProduto(id, produtoDtoReq);
+
+        if(produtoDtoRes.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        ProdutoResponse produtoResponse = MAPPER.map(produtoDtoRes, ProdutoResponse.class);
         return new ResponseEntity<>(produtoResponse, HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/deletar/{id}")
+    @DeleteMapping("/deletar/{id}")
     public ResponseEntity <Optional<String>> deleteProduto(@PathVariable String id)
     {
         return new ResponseEntity<>(service.deleteById(id), HttpStatus.OK);

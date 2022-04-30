@@ -67,7 +67,7 @@ public class VendaProdutoController {
         String fixedDate1 = data1.replaceAll("-", "/");
         String fixedDate2 = data2.replaceAll("-", "/");
 
-        boolean datesValidated = validarData(fixedDate2) && validarData(fixedDate2);
+        boolean datesValidated = validarData(fixedDate1) && validarData(fixedDate2);
         
         if (!datesValidated) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -113,9 +113,13 @@ public class VendaProdutoController {
         VendaDetails vendaDetailsRes = MAPPER.map(vendaRes.get(), VendaDetails.class);
 
         return new ResponseEntity<>(vendaDetailsRes, HttpStatus.CREATED);
-         
+        
     }
-
+    
+    @DeleteMapping("/deletar/{id}")
+    public ResponseEntity <Optional<String>> deleteUnique(@PathVariable String id) {
+        return new ResponseEntity<>(service.deleteById(id), HttpStatus.OK);
+    }
 
     private static boolean validarData (String data) {
 
@@ -140,10 +144,5 @@ public class VendaProdutoController {
             }
     }
     
-    @DeleteMapping(value = "/deletar/{id}")
-    public ResponseEntity <Optional<String>> deleteVenda(@PathVariable String id)
-    {
-        return new ResponseEntity<>(service.deleteById(id), HttpStatus.OK);
-    }
 
 }

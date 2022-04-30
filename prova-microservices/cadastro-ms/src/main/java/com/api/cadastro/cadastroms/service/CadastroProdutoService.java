@@ -9,9 +9,9 @@ public interface CadastroProdutoService {
     
     Optional<List<ProdutoDto>> listAll ();
     Optional<ProdutoDto> getUnique (String id);
-    Optional<ProdutoDto> postUnique (ProdutoDto produto);
     Optional<ProdutoDto> getUniqueByCodigo (String codigo);
+    Optional<ProdutoDto> postUnique (ProdutoDto produto);
     Optional<Boolean> putStock (String codigo,boolean adicionar,int novaQuantidade);
-    ProdutoDto putProduto(String id, ProdutoDto produtoDto);
+    Optional<ProdutoDto> putProduto(String id, ProdutoDto produtoDto);
     Optional <String> deleteById(String id);
 }
