@@ -12,13 +12,14 @@ funções:
 		listar todas as vendas por codigo = OK
 		listar todas as vendas (sem os produtos) = OK
 		listar vendas por periodo = OK
+		Hystrix adicionado a venda = Ok
 		
 	opcionais:
 		fazer um config em cadastro-ms e venda-ms pra tirar o classpath do mongo = OK
-		excluir venda (falta adicionar no estoque)
-		alterar preco de produto (fiz um put geral)
+		excluir venda = OK (falta adicionar no estoque)
+		alterar preco de produto = OK (fiz um put geral)
 		listar todas as vendas (com os produtos) opcional
-		adicionar um atributo total em venda
+		adicionar um atributo total em venda = em progresso
 		
 validações:
 	ver se quantidadeVendida < quantidadeEstoque = OK
@@ -29,7 +30,13 @@ repositorio atual no mongo: Desafio
 collections: produto, venda
 
 
+
 lembrar de mexer na properties de config-server
 
 DUVIDAS:
 método get pesquisar por intervalo como usar?
+/venda-ms/api/venda/pesquisar-por-intervalo/{data1}/{data2}
+/venda-ms/api/venda/pesquisar-por-intervalo/31-04-2022/02-11-2001
+
+não importa qual data seja a maior ou a menor, e a data é validada diretamente da url
+

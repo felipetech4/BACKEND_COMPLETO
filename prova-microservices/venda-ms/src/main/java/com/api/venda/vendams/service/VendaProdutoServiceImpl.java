@@ -117,10 +117,10 @@ public class VendaProdutoServiceImpl implements VendaProdutoService {
 
     @Override
     public Optional<VendaDto> postUnique (VendaDto venda) {
-        boolean operationSucces = cadastro.putStock(venda.getCodigo(),false /*false para retirar do estoque*/, venda.getQuantidadeVendida());
+        Optional<Boolean> operationSucces = cadastro.putStock(venda.getCodigo(),false /*false para retirar do estoque*/, venda.getQuantidadeVendida());
         
         // se não foi possivel retirar do estoque a venda é cancelada
-        if (!operationSucces) {
+        if (operationSucces.isEmpty() || (!operationSucces.get())) {
             return Optional.empty();
         }
 
