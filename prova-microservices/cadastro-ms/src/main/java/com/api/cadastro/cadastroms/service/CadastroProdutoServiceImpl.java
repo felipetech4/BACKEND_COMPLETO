@@ -117,7 +117,7 @@ public class CadastroProdutoServiceImpl implements CadastroProdutoService {
     {
         Optional <Produto> produto = repository.findById(id);
         if (produto.isPresent())
-        {
+        {  
             repository.deleteById(id);
             return Optional.of(String.format("REGISTRO DO PRODUTO: '%s' DELETADO COM SUCESSO!", 
             produto.get().getNome()));

@@ -13,5 +13,6 @@ public interface VendaProdutoService {
     Optional<List<VendaDto>> listAllByDateInterval (String primeiraData, String segundaData) throws ParseException;
     Optional<VendaDto> listUnique (String id);
     Optional<VendaDto> postUnique (VendaDto venda);
+    Optional<String> cancelById(String id);
     Optional<String> deleteById(String id);
 }
