@@ -17,8 +17,8 @@ funções:
 		fazer um config em cadastro-ms e venda-ms pra tirar o classpath do mongo = OK
 		excluir venda (falta adicionar no estoque)
 		alterar preco de produto (fiz um put geral)
-		adicionar um atributo total em venda
 		listar todas as vendas (com os produtos) opcional
+		adicionar um atributo total em venda
 		
 validações:
 	ver se quantidadeVendida < quantidadeEstoque = OK
