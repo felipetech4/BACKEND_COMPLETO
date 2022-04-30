@@ -142,5 +142,16 @@ public class VendaProdutoServiceImpl implements VendaProdutoService {
         return Optional.of(MAPPER.map(repositoryResponse, VendaDto.class));
     }
     
-    
+    @Override
+    public Optional <String> deleteById(String id) 
+    {
+        Optional <Venda> venda = repository.findById(id);
+        if (venda.isPresent())
+        {
+            repository.deleteById(id);
+            return Optional.of(String.format("REGISTRO DA VENDA: '%s' DELETADO COM SUCESSO!", 
+            venda.get().getId()));
+        }
+        return Optional.of("REGISTRO INFORMADO NÃO EXISTE");
+    }
 }

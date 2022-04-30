@@ -15,6 +15,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -87,5 +88,20 @@ public class CadastoProdutoController {
 
         return serviceResponse.get();
 
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity <ProdutoResponse> putProduto(@PathVariable String id, @RequestBody @Valid ProdutoRequest produtoRequest)
+    {
+        ProdutoDto produtoDto = MAPPER.map(produtoRequest, ProdutoDto.class);
+        produtoDto = service.putProduto(id, produtoDto);
+        ProdutoResponse produtoResponse = MAPPER.map(produtoDto, ProdutoResponse.class);
+        return new ResponseEntity<>(produtoResponse, HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/deletar/{id}")
+    public ResponseEntity <Optional<String>> deleteProduto(@PathVariable String id)
+    {
+        return new ResponseEntity<>(service.deleteById(id), HttpStatus.OK);
     }
 }

@@ -96,8 +96,27 @@ public class CadastroProdutoServiceImpl implements CadastroProdutoService {
         return Optional.of(true);
     }
 
+    @Override
+    public ProdutoDto putProduto(String id, ProdutoDto produtoDto) 
+    {
+        Produto produto = MAPPER.map(produtoDto, Produto.class);
+        produto.setId(id);
+        repository.save(produto);
+        ProdutoDto dto = MAPPER.map(produto, ProdutoDto.class);
+        return dto;
+    }
 
-
-    
+    @Override
+    public Optional <String> deleteById(String id) 
+    {
+        Optional <Produto> produto = repository.findById(id);
+        if (produto.isPresent())
+        {
+            repository.deleteById(id);
+            return Optional.of(String.format("REGISTRO DO PRODUTO: '%s' DELETADO COM SUCESSO!", 
+            produto.get().getNome()));
+        }
+        return Optional.of("REGISTRO INFORMADO NÃO EXISTE");
+    }
     
 }

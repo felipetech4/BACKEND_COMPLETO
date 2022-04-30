@@ -4,6 +4,7 @@ funções:
 		listar todos os produtos = OK
 		incluir produto = OK
 		alterar estoque = OK (adicionar e remover)
+		excluir produto = OK
 		
 	venda-ms:
 		realizar venda = OK
@@ -14,14 +15,14 @@ funções:
 		listar vendas por periodo = OK
 		
 	opcionais:
-		excluir venda
-		alterar preco de produto
+		excluir venda (falta adicionar no estoque)
+		alterar preco de produto (fiz um put geral)
 		adicionar um atributo total em venda
 		fazer um config em cadastro-ms e venda-ms pra tirar o classpath do mongo = OK
 		
 validações:
 	ver se quantidadeVendida < quantidadeEstoque = OK
-	todos os input de cadastro e venda = OK (eu acho é bom testar)
+	todos os input de cadastro e venda = OK
 
 
 repositorio atual no mongo: Desafio
@@ -31,6 +32,4 @@ collections: produto, venda
 lembrar de mexer na properties de config-server
 
 DUVIDAS:
-método put modifcar estoque é necessário?
 método get pesquisar por intervalo como usar?
-	
