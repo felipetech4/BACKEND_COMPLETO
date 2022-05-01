@@ -48,6 +48,21 @@ public class VendaProdutoController {
     
     }
 
+    @GetMapping("/listar/vendas-e-produtos")
+    public ResponseEntity<List<VendaDetails>> getAllWithCodigo () {
+        Optional<List<VendaDto>> serviceResponse = service.listAll();
+        
+        if (serviceResponse.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
+        List<VendaDetails> vendaResponseList = serviceResponse.get().stream()
+        .map(dat -> MAPPER.map(dat, VendaDetails.class)).collect(Collectors.toList());
+
+        return new ResponseEntity<>(vendaResponseList, HttpStatus.OK);
+    
+    }
+
     @GetMapping("/pesquisar-por-codigo/{codigo}")
     public ResponseEntity<List<VendaResponse>> getAllByCodigo (@PathVariable String codigo) {
         Optional<List<VendaDto>> serviceResponse = service.listAllByCodigo(codigo);
@@ -123,7 +138,7 @@ public class VendaProdutoController {
 
     @DeleteMapping("/deletar/{id}")
     public ResponseEntity<Optional<String>> deleteUnique(@PathVariable String id) {
-        return new ResponseEntity<>(service.cancelById(id), HttpStatus.OK);
+        return new ResponseEntity<>(service.deleteById(id), HttpStatus.OK);
     }
 
     private static boolean validarData (String data) {
