@@ -28,43 +28,43 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/venda")
 public class VendaProdutoController {
-    
+
     private final ModelMapper MAPPER = new ModelMapper();
     @Autowired
     private VendaProdutoService service;
 
     @GetMapping
-    public ResponseEntity<List<VendaResponse>> getAll () {
+    public ResponseEntity<List<VendaResponse>> getAll() {
         Optional<List<VendaDto>> serviceResponse = service.listAll();
-        
+
         if (serviceResponse.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
         List<VendaResponse> vendaResponseList = serviceResponse.get().stream()
-        .map(dat -> MAPPER.map(dat, VendaResponse.class)).collect(Collectors.toList());
+                .map(dat -> MAPPER.map(dat, VendaResponse.class)).collect(Collectors.toList());
 
         return new ResponseEntity<>(vendaResponseList, HttpStatus.OK);
-    
+
     }
 
     @GetMapping("/listar/vendas-e-produtos")
-    public ResponseEntity<List<VendaDetails>> getAllWithCodigo () {
+    public ResponseEntity<List<VendaDetails>> getAllWithCodigo() {
         Optional<List<VendaDto>> serviceResponse = service.listAll();
-        
+
         if (serviceResponse.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
         List<VendaDetails> vendaResponseList = serviceResponse.get().stream()
-        .map(dat -> MAPPER.map(dat, VendaDetails.class)).collect(Collectors.toList());
+                .map(dat -> MAPPER.map(dat, VendaDetails.class)).collect(Collectors.toList());
 
         return new ResponseEntity<>(vendaResponseList, HttpStatus.OK);
-    
+
     }
 
     @GetMapping("/pesquisar-por-codigo/{codigo}")
-    public ResponseEntity<List<VendaResponse>> getAllByCodigo (@PathVariable String codigo) {
+    public ResponseEntity<List<VendaResponse>> getAllByCodigo(@PathVariable String codigo) {
         Optional<List<VendaDto>> serviceResponse = service.listAllByCodigo(codigo);
 
         if (serviceResponse.isEmpty()) {
@@ -72,18 +72,19 @@ public class VendaProdutoController {
         }
 
         List<VendaResponse> vendaResponseList = serviceResponse.get().stream()
-        .map(dat -> MAPPER.map(dat, VendaResponse.class)).collect(Collectors.toList());
+                .map(dat -> MAPPER.map(dat, VendaResponse.class)).collect(Collectors.toList());
 
         return new ResponseEntity<>(vendaResponseList, HttpStatus.FOUND);
     }
 
     @GetMapping("/pesquisar-por-intervalo/{data1}/{data2}")
-    public ResponseEntity<List<VendaResponse>> getAllByInterval ( @PathVariable String data1, @PathVariable String data2) throws ParseException {        
+    public ResponseEntity<List<VendaResponse>> getAllByInterval(@PathVariable String data1, @PathVariable String data2)
+            throws ParseException {
         String fixedDate1 = data1.replaceAll("-", "/");
         String fixedDate2 = data2.replaceAll("-", "/");
 
         boolean datesValidated = validarData(fixedDate1) && validarData(fixedDate2);
-        
+
         if (!datesValidated) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -95,13 +96,13 @@ public class VendaProdutoController {
         }
 
         List<VendaResponse> vendaResponseList = serviceResponse.get().stream()
-        .map(dat -> MAPPER.map(dat, VendaResponse.class)).collect(Collectors.toList());
+                .map(dat -> MAPPER.map(dat, VendaResponse.class)).collect(Collectors.toList());
 
         return new ResponseEntity<>(vendaResponseList, HttpStatus.FOUND);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<VendaResponse> getUnique (@PathVariable String id) {
+    public ResponseEntity<VendaResponse> getUnique(@PathVariable String id) {
         Optional<VendaDto> serviceResponse = service.listUnique(id);
 
         if (serviceResponse.isEmpty()) {
@@ -109,15 +110,14 @@ public class VendaProdutoController {
         }
 
         VendaResponse vendaResponseUnique = MAPPER.map(serviceResponse.get(), VendaResponse.class);
-        
+
         return new ResponseEntity<>(vendaResponseUnique, HttpStatus.FOUND);
-        
+
     }
 
-
     @PostMapping("/adicionar")
-    public ResponseEntity<VendaDetails> postUnique (@RequestBody @Valid VendaRequest venda) {
-        
+    public ResponseEntity<VendaDetails> postUnique(@RequestBody @Valid VendaRequest venda) {
+
         VendaDto vendaReq = MAPPER.map(venda, VendaDto.class);
         Optional<VendaDto> vendaRes = service.postUnique(vendaReq);
 
@@ -128,9 +128,9 @@ public class VendaProdutoController {
         VendaDetails vendaDetailsRes = MAPPER.map(vendaRes.get(), VendaDetails.class);
 
         return new ResponseEntity<>(vendaDetailsRes, HttpStatus.CREATED);
-        
+
     }
-    
+
     @DeleteMapping("/cancelar/{id}")
     public ResponseEntity<Optional<String>> cancelUnique(@PathVariable String id) {
         return new ResponseEntity<>(service.cancelById(id), HttpStatus.OK);
@@ -141,28 +141,27 @@ public class VendaProdutoController {
         return new ResponseEntity<>(service.deleteById(id), HttpStatus.OK);
     }
 
-    private static boolean validarData (String data) {
+    private static boolean validarData(String data) {
 
         boolean dataValida = data.matches("^(\\d{2})[/](\\d{2})[/](\\d{4})$");
-            
-            if (!dataValida) { 
-                return false;
-            }
-            
-            String[] arrayData = data.split("/");
-            
-            int dia = Integer.parseInt(arrayData[0]);
-            int mes = Integer.parseInt(arrayData[1]);
-            int ano = Integer.parseInt(arrayData[2]);
-            
-            if ((dia > 0 && dia <= 31) &&
-            (mes > 0 && mes <= 12) &&
-            (ano > 1900 && ano <= 2050)) {
-                return true;
-            } else {
-                return false;
-            }
+
+        if (!dataValida) {
+            return false;
+        }
+
+        String[] arrayData = data.split("/");
+
+        int dia = Integer.parseInt(arrayData[0]);
+        int mes = Integer.parseInt(arrayData[1]);
+        int ano = Integer.parseInt(arrayData[2]);
+
+        if ((dia > 0 && dia <= 31) &&
+                (mes > 0 && mes <= 12) &&
+                (ano > 1900 && ano <= 2050)) {
+            return true;
+        } else {
+            return false;
+        }
     }
-    
 
 }

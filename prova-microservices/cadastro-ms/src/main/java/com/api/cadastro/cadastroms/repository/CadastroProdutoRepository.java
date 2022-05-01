@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CadastroProdutoRepository extends MongoRepository<Produto, String> {
 
-    Optional<Produto> findByCodigo (String codigo);
+    Optional<Produto> findByCodigo(String codigo);
 }

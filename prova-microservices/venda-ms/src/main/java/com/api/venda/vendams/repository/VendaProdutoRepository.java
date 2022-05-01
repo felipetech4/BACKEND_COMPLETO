@@ -9,6 +9,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface VendaProdutoRepository extends MongoRepository<Venda,String> { 
-    Optional<List<Venda>> findAllByCodigo (String codigo);
+public interface VendaProdutoRepository extends MongoRepository<Venda, String> {
+    Optional<List<Venda>> findAllByCodigo(String codigo);
 }

@@ -7,13 +7,20 @@ import java.util.Optional;
 import com.api.venda.vendams.shared.VendaDto;
 
 public interface VendaProdutoService {
-    
-    Optional<List<VendaDto>> listAll ();
+
+    Optional<List<VendaDto>> listAll();
+
     Optional<List<VendaDto>> listAllWithCodigo();
-    Optional<List<VendaDto>> listAllByCodigo (String codigo);
-    Optional<List<VendaDto>> listAllByDateInterval (String primeiraData, String segundaData) throws ParseException;
-    Optional<VendaDto> listUnique (String id);
-    Optional<VendaDto> postUnique (VendaDto venda);
+
+    Optional<List<VendaDto>> listAllByCodigo(String codigo);
+
+    Optional<List<VendaDto>> listAllByDateInterval(String primeiraData, String segundaData) throws ParseException;
+
+    Optional<VendaDto> listUnique(String id);
+
+    Optional<VendaDto> postUnique(VendaDto venda);
+
     Optional<String> cancelById(String id);
+
     Optional<String> deleteById(String id);
 }
