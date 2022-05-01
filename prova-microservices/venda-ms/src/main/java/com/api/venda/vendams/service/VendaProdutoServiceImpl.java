@@ -43,6 +43,19 @@ public class VendaProdutoServiceImpl implements VendaProdutoService {
         return Optional.of(listVendaDto);
     }
 
+    @Override
+    public Optional<List<VendaDto>> listAllWithCodigo() {
+       
+        if (repository.count() < 1)  {
+            return Optional.empty();
+        }
+        
+        List<VendaDto> listVendaDto = repository.findAll().stream()
+        .map(dat -> MAPPER.map(dat, VendaDto.class)).collect(Collectors.toList());
+
+        return Optional.of(listVendaDto);
+    }
+
 
     @Override
     public Optional<List<VendaDto>> listAllByCodigo (String codigo) {
@@ -151,7 +164,7 @@ public class VendaProdutoServiceImpl implements VendaProdutoService {
             cadastro.putStock(venda.get().getCodigo(), true, venda.get().getQuantidadeVendida());
 
             repository.deleteById(id);
-            return Optional.of(String.format("REGISTRO DA VENDA: '%s' DELETADO COM SUCESSO!", 
+            return Optional.of(String.format("REGISTRO DA VENDA: '%s' CANCELADO COM SUCESSO! O PRODUTO VOLTOU PARA O ESTOQUE.", 
             venda.get().getId()));
         }
         return Optional.of("REGISTRO INFORMADO NÃO EXISTE");
