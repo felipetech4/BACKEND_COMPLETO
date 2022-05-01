@@ -1,14 +1,21 @@
 mapeamento das api:
 	cadastro-ms:
-			  |
-			  |
-			  |
-			  |
-			  |
+		POST  | adicionar um produto                             | cadastro-ms/api/cadastro/adicionar
+			ex:
+				{
+					"nome": "Melancia",
+					"codigo": "101010",
+					"preco": 1.99,
+					"quantidadeEstoque": 100
+				}
+		GET   | exibir todos os produtos 				          | cadastro-ms/api/cadastro
+		GET	  | exibir produto unico por id			 			  | cadastro-ms/api/cadastro/{id}
+		GET	  | exibir produto unico por codigo			 		  | cadastro-ms/api/cadastro/pesquisar-por-codigo/{codigo}
+			  | 
 			  |
 			  |
 	venda-ms:
-		POST  | adicionar uma venda       | venda-ms/api/venda/adicionar
+		POST  | adicionar uma venda                               | venda-ms/api/venda/adicionar
 			ex:
 				{
     				"codigo": "{codigo do produto a ser vendido}", // @NotEmpty @NotBlank
@@ -17,7 +24,7 @@ mapeamento das api:
 					sera considerado data invalida
 				}
 		GET   | exibir todas as vendas por codigo  				  | venda-ms/api/venda/pesquisar-por-codigo/{codigo}
-		GET   | exibir todas as vendas com produto 				  | bota a url aqui felipe
+		GET   | exibir todas as vendas com produto 				  | venda-ms/api/venda/listar/vendas-e-produtos
 		GET   | exibir vendas por periodo			 			  | venda-ms/api/venda/pesquisar-por-intervalo/{data1}/{data2} ex:31-11-2001
 		GET	  | exibir venda unica por id			 			  | venda-ms/api/venda/{id}
 		GET	  | exibir todas as vendas sem produto  			  | venda-ms/api/venda
@@ -43,8 +50,7 @@ funções:
 	opcionais:
 		fazer um config em cadastro-ms e venda-ms pra tirar o classpath do mongo = OK
 		excluir venda = OK
-		cancelar venda = OK (falta adicionar no estoque)
-		alterar preco de produto = OK (fiz um put geral)
+		cancelar venda = OK
 		listar todas as vendas (com os produtos) opcional (felipe)
 		adicionar um atributo total em venda = em progresso (gabriel)
 		
@@ -67,3 +73,6 @@ método get pesquisar por intervalo como usar?
 
 não importa qual data seja a maior ou a menor, e a data é validada diretamente da url
 
+OBS: método modifcar estoque em cadastro (ta retornando um null ao alterar) PUT
+	 metodo alterar por id em cadasrto está alterando, porém retorna os valores null no postman PUT
+	 
