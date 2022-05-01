@@ -96,17 +96,12 @@ public class CadastroProdutoServiceImpl implements CadastroProdutoService {
     }
 
     @Override
-    public Optional<ProdutoDto> putProduto(String id, ProdutoDto produtoDto) {
+    public ProdutoDto putProduto(String id, ProdutoDto produtoDto) {
         Produto produto = MAPPER.map(produtoDto, Produto.class);
         produto.setId(id);
-
-        if (!repository.existsById(id)) {
-            return Optional.empty();
-        }
-
-        Produto repositoryResponse = repository.save(produto);
-        ProdutoDto produtoDtoResponse = MAPPER.map(repositoryResponse, ProdutoDto.class);
-        return Optional.of(produtoDtoResponse);
+        repository.save(produto);
+        ProdutoDto dto = MAPPER.map(produto, ProdutoDto.class);
+        return dto;
     }
 
     @Override

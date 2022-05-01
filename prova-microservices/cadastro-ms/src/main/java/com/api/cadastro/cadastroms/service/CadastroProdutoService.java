@@ -17,7 +17,7 @@ public interface CadastroProdutoService {
 
     Optional<Boolean> putStock(String codigo, boolean adicionar, int novaQuantidade);
 
-    Optional<ProdutoDto> putProduto(String id, ProdutoDto produtoDto);
+    ProdutoDto putProduto(String id, ProdutoDto produtoDto);
 
     Optional<String> deleteById(String id);
 }
