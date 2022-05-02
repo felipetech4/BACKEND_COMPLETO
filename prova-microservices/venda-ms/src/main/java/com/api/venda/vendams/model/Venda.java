@@ -11,10 +11,23 @@ public class Venda {
     private String codigo;
     private int quantidadeVendida;
     private String dataVenda;
+    private double totalVenda;
     private Produto produto;
+
+    public void setTotalPreco () {
+        this.totalVenda = quantidadeVendida * produto.getPreco();
+    }
 
     public Produto getProduto() {
         return produto;
+    }
+
+    public double getTotalVenda() {
+        return totalVenda;
+    }
+
+    public void setTotalVenda(double totalVenda) {
+        this.totalVenda = totalVenda;
     }
 
     public void setProduto(Produto produto) {

@@ -4,10 +4,20 @@ public class VendaDto {
     private String codigo;
     private int quantidadeVendida;
     private String dataVenda;
+    private double totalVenda;
     private Produto produto;
+
 
     public Produto getProduto() {
         return produto;
+    }
+
+    public double getTotalVenda() {
+        return totalVenda;
+    }
+
+    public void setTotalVenda(double totalVenda) {
+        this.totalVenda = totalVenda;
     }
 
     public void setProduto(Produto produto) {

@@ -16,23 +16,20 @@ Documentando Api's:
 		GET   | Exibir todos os produtos 				          | cadastro-ms/api/cadastro
 		GET	  | Exibir produto unico por id			 			  | cadastro-ms/api/cadastro/{id}
 		GET	  | Exibir produto unico por codigo			 		  | cadastro-ms/api/cadastro/pesquisar-por-codigo/{codigo}
-			  | 
-			  |
+		PUT   | alterar produto (geral)                           | cadastro-ms/api/cadastro/alterar/{id}
+		PUT	  | Alterar estoque                                   | cadastro-ms/api/cadastro/modificar-estoque/{codigo}/{true(adicionar), false(decrementar)}/{novaQuantidade}
 		DELETE| Deletar um produto                                | cadastro-ms/api/cadastro/deletar/{id}
-
-
-
 
 	venda-ms:
 
 		POST  | Adicionar uma venda                               | venda-ms/api/venda/adicionar
 			ex:
 				{
-    				"codigo": "{codigo do produto a ser vendido}", // @NotEmpty @NotBlank
-    				"quantidadeVendida": 1, // min (1)
-    				"dataVenda": null // pode ser passado uma data (dd/MM/yyyy) ou não (considera data atual),
-					se for passado qualquer diferente de (null, "", " ") será considerado data invalida
-				}
+    				"codigo": "{codigo do produto a ser vendido}",| @NotEmpty @NotBlank
+    				"quantidadeVendida": 1,                       | min (1)
+    				"dataVenda": null                             | pode ser passado uma data (dd/MM/yyyy) ou não (considera data atual), 
+				}												  |	se for passado qualquer diferente de (null, "", " ") será considerado data invalida
+				
 		GET   | exibir todas as vendas por codigo  				  | venda-ms/api/venda/pesquisar-por-codigo/{codigo}
 		GET   | exibir todas as vendas com produto 				  | venda-ms/api/venda/listar/vendas-e-produtos
 		GET   | exibir vendas por periodo			 			  | venda-ms/api/venda/pesquisar-por-intervalo/{data1}/{data2} ex: 20-03-2022/01-05-2022
@@ -41,10 +38,6 @@ Documentando Api's:
 		DELETE| cancelar uma venda (produto volta para estoque)   | venda-ms/api/venda/cancelar/{id} 
 		DELETE| deletar uma venda (produto não volta pra estoque) | venda-ms/api/venda/deletar/{id}
 
-
-
-
-
 Funções:
 
 	cadastro-ms:
@@ -52,6 +45,7 @@ Funções:
 		Listar todos os produtos = OK
 		Incluir produto = OK
 		Alterar estoque = OK (adicionar e remover)
+		Alterar produto = OK
 		Excluir produto = OK
 		
 	venda-ms:
@@ -65,20 +59,13 @@ Funções:
 		Excluir venda = OK
 		Cancelar venda = OK
 		
-
-
-
 Adicionais:
 	Fazer um config em cadastro-ms e venda-ms pra tirar o classpath do mongo = OK
-	Adicionar um atributo total em venda = em progresso (gabriel)
+	Adicionar um atributo total em venda = OK
 		
-DÚVIDAS: PUT método modifcar estoque em cadastro (ta retornando um null ou true ao alterar não entendi muito bem a adição e remoção no postman)
-		 PUT metodo alterar por id em cadasrto está alterando, porém retorna os valores null no postman
-
-
-
-
-
+DÚVIDAS: PUT método modifcar estoque em cadastro (ta retornando um null, true, false)
+			R: Null é porque adicionou, true é porque removeu, false é porque não conseguiu remover. Esse método é interno e deve ser usado apenas por outras api ou a própria api
+			e não por um client por isso ele não tem uma reposta "bonita".
 
 OBS PARA FUNCIONAMENTO CORRETO:
 	Banco de Dados: Desafio
