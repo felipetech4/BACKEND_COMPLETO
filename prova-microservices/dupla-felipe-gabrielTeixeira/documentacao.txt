@@ -69,3 +69,13 @@ OBS PARA FUNCIONAMENTO CORRETO:
 				 venda
 
 	Configuração para subir tudo corretamente: Trocar o endereço de application.properties do config-server
+
+	Run:
+		config-server
+		eureka-server
+		zuul-server
+		cadastro-ms
+		venda-ms
+
+
+
