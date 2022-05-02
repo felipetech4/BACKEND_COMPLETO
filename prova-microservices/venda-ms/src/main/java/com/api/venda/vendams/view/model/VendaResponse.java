@@ -4,6 +4,16 @@ public class VendaResponse {
     private String codigo;
     private int quantidadeVendida;
     private String dataVenda;
+    private double totalVenda;
+
+
+    public double getTotalVenda() {
+        return totalVenda;
+    }
+
+    public void setTotalVenda(double totalVenda) {
+        this.totalVenda = totalVenda;
+    }
 
     public String getCodigo() {
         return codigo;

@@ -95,8 +95,15 @@ public class CadastoProdutoController {
     public ResponseEntity<ProdutoResponse> putProduto(@PathVariable String id,
             @RequestBody @Valid ProdutoRequest produtoRequest) {
         ProdutoDto produtoDto = MAPPER.map(produtoRequest, ProdutoDto.class);
-        service.putProduto(id, produtoDto);
-        ProdutoResponse produtoResponse = MAPPER.map(produtoDto, ProdutoResponse.class);
+        
+        Optional<ProdutoDto> serviceResponse = service.putProduto(id, produtoDto);
+        
+        if (serviceResponse.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        ProdutoResponse produtoResponse = MAPPER.map(serviceResponse.get(), ProdutoResponse.class);
+
         return new ResponseEntity<>(produtoResponse, HttpStatus.OK);
     }
 

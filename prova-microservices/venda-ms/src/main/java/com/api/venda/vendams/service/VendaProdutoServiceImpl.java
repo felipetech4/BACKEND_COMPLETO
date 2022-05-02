@@ -125,19 +125,21 @@ public class VendaProdutoServiceImpl implements VendaProdutoService {
 
     @Override
     public Optional<VendaDto> postUnique(VendaDto venda) {
+        
         Optional<Boolean> operationSucces = cadastro.putStock(venda.getCodigo(),
-                false /* false para retirar do estoque */, venda.getQuantidadeVendida());
-
+        false /* false para retirar do estoque */, venda.getQuantidadeVendida());
+        
         // se não foi possivel retirar do estoque a venda é cancelada
         if (operationSucces.isEmpty() || (!operationSucces.get())) {
             return Optional.empty();
         }
-
+        
         Venda vendaRequest = MAPPER.map(venda, Venda.class);
         Produto produtoRequest = cadastro.getProduto(vendaRequest.getCodigo()).get();
-
+        
         // guardando o produto dentro da venda
         vendaRequest.setProduto(produtoRequest);
+        vendaRequest.setTotalPreco();
 
         // caso não tenha data pre-definida é cadastrado a data atual
         if (vendaRequest.getDataVenda() == null || vendaRequest.getDataVenda().isBlank()
@@ -149,6 +151,7 @@ public class VendaProdutoServiceImpl implements VendaProdutoService {
 
         Venda repositoryResponse = repository.save(vendaRequest);
 
+        
         return Optional.of(MAPPER.map(repositoryResponse, VendaDto.class));
     }
 
