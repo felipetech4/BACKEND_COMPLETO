@@ -17,7 +17,6 @@ Documentando Api's:
 		GET	  | Exibir produto unico por id			 			  | cadastro-ms/api/cadastro/{id}
 		GET	  | Exibir produto unico por codigo			 		  | cadastro-ms/api/cadastro/pesquisar-por-codigo/{codigo}
 		PUT   | alterar produto (geral)                           | cadastro-ms/api/cadastro/alterar/{id}
-		PUT	  | Alterar estoque                                   | cadastro-ms/api/cadastro/modificar-estoque/{codigo}/{true(adicionar), false(decrementar)}/{novaQuantidade}
 		DELETE| Deletar um produto                                | cadastro-ms/api/cadastro/deletar/{id}
 
 	venda-ms:
@@ -58,14 +57,11 @@ Funções:
 		Hystrix adicionado a venda = Ok
 		Excluir venda = OK
 		Cancelar venda = OK
+        Adicionar um atributo total em venda = OK
 		
 Adicionais:
 	Fazer um config em cadastro-ms e venda-ms pra tirar o classpath do mongo = OK
-	Adicionar um atributo total em venda = OK
-		
-DÚVIDAS: PUT método modifcar estoque em cadastro (ta retornando um null, true, false)
-			R: Null é porque adicionou, true é porque removeu, false é porque não conseguiu remover. Esse método é interno e deve ser usado apenas por outras api ou a própria api
-			e não por um client por isso ele não tem uma reposta "bonita".
+
 
 OBS PARA FUNCIONAMENTO CORRETO:
 	Banco de Dados: Desafio
