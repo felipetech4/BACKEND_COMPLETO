@@ -1,69 +1,88 @@
-mapeamento das api:
+
+PROVA FELIPE E GABRIEL TEIXEIRA
+
+Documentando Api's:
+
 	cadastro-ms:
+
+		POST  | Adicionar um produto                             | cadastro-ms/api/cadastro/adicionar
+			ex:
+				{
+					"nome": "Melancia",
+					"codigo": "101010",
+					"preco": 1.99,
+					"quantidadeEstoque": 100
+				}
+		GET   | Exibir todos os produtos 				          | cadastro-ms/api/cadastro
+		GET	  | Exibir produto unico por id			 			  | cadastro-ms/api/cadastro/{id}
+		GET	  | Exibir produto unico por codigo			 		  | cadastro-ms/api/cadastro/pesquisar-por-codigo/{codigo}
+			  | 
 			  |
-			  |
-			  |
-			  |
-			  |
-			  |
-			  |
+		DELETE| Deletar um produto                                | cadastro-ms/api/cadastro/deletar/{id}
+
+
+
+
 	venda-ms:
-		POST  | adicionar uma venda       | venda-ms/api/venda/adicionar
+
+		POST  | Adicionar uma venda                               | venda-ms/api/venda/adicionar
 			ex:
 				{
     				"codigo": "{codigo do produto a ser vendido}", // @NotEmpty @NotBlank
     				"quantidadeVendida": 1, // min (1)
-    				"dataVenda": null // pode ser passado uma data (dd/MM/yyyy) ou não (considera data atual), se for passado qualquer diferente de (null, "", " ") 
-					sera considerado data invalida
+    				"dataVenda": null // pode ser passado uma data (dd/MM/yyyy) ou não (considera data atual),
+					se for passado qualquer diferente de (null, "", " ") será considerado data invalida
 				}
 		GET   | exibir todas as vendas por codigo  				  | venda-ms/api/venda/pesquisar-por-codigo/{codigo}
-		GET   | exibir todas as vendas com produto 				  | bota a url aqui felipe
-		GET   | exibir vendas por periodo			 			  | venda-ms/api/venda/pesquisar-por-intervalo/{data1}/{data2} ex:31-11-2001
+		GET   | exibir todas as vendas com produto 				  | venda-ms/api/venda/listar/vendas-e-produtos
+		GET   | exibir vendas por periodo			 			  | venda-ms/api/venda/pesquisar-por-intervalo/{data1}/{data2} ex: 20-03-2022/01-05-2022
 		GET	  | exibir venda unica por id			 			  | venda-ms/api/venda/{id}
 		GET	  | exibir todas as vendas sem produto  			  | venda-ms/api/venda
 		DELETE| cancelar uma venda (produto volta para estoque)   | venda-ms/api/venda/cancelar/{id} 
-		DELETE| deletar uma venda (produto não volta ara estoque) | venda-ms/api/venda/deletar/{id}
+		DELETE| deletar uma venda (produto não volta pra estoque) | venda-ms/api/venda/deletar/{id}
 
-funções: 
+
+
+
+
+Funções:
+
 	cadastro-ms:
- 		pesquisar produto por id = OK
-		listar todos os produtos = OK
-		incluir produto = OK
-		alterar estoque = OK (adicionar e remover)
-		excluir produto = OK
+ 		Pesquisar produto por id = OK
+		Listar todos os produtos = OK
+		Incluir produto = OK
+		Alterar estoque = OK (adicionar e remover)
+		Excluir produto = OK
 		
 	venda-ms:
-		realizar venda = OK
-		buscar venda por id = OK
-		listar todas as vendas por codigo = OK
-		listar todas as vendas (sem os produtos) = OK
-		listar vendas por periodo = OK
+		Realizar venda = OK
+		Buscar venda por id = OK
+		Listar todas as vendas por codigo = OK
+		Listar todas as vendas (sem os produtos) = OK
+		Listar todas as vendas (com os produtos) = OK
+		Listar vendas por periodo = OK
 		Hystrix adicionado a venda = Ok
+		Excluir venda = OK
+		Cancelar venda = OK
 		
-	opcionais:
-		fazer um config em cadastro-ms e venda-ms pra tirar o classpath do mongo = OK
-		excluir venda = OK
-		cancelar venda = OK (falta adicionar no estoque)
-		alterar preco de produto = OK (fiz um put geral)
-		listar todas as vendas (com os produtos) opcional (felipe)
-		adicionar um atributo total em venda = em progresso (gabriel)
+
+
+
+Adicionais:
+	Fazer um config em cadastro-ms e venda-ms pra tirar o classpath do mongo = OK
+	Adicionar um atributo total em venda = em progresso (gabriel)
 		
-validações:
-	ver se quantidadeVendida < quantidadeEstoque = OK
-	todos os input de cadastro e venda = OK
-
-
-repositorio atual no mongo: Desafio
-collections: produto, venda
+DÚVIDAS: PUT método modifcar estoque em cadastro (ta retornando um null ou true ao alterar não entendi muito bem a adição e remoção no postman)
+		 PUT metodo alterar por id em cadasrto está alterando, porém retorna os valores null no postman
 
 
 
-lembrar de mexer na properties de config-server
 
-DUVIDAS:
-método get pesquisar por intervalo como usar?
-/venda-ms/api/venda/pesquisar-por-intervalo/{data1}/{data2}
-/venda-ms/api/venda/pesquisar-por-intervalo/31-04-2022/02-11-2001
 
-não importa qual data seja a maior ou a menor, e a data é validada diretamente da url
 
+OBS PARA FUNCIONAMENTO CORRETO:
+	Banco de Dados: Desafio
+	Collections: produto
+				 venda
+
+	Configuração para subir tudo corretamente: Trocar o endereço de application.properties do config-server

@@ -27,28 +27,28 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/cadastro")
 public class CadastoProdutoController {
-    
+
     private final ModelMapper MAPPER = new ModelMapper();
     @Autowired
     private CadastroProdutoService service;
 
     @GetMapping
-    public ResponseEntity<List<ProdutoResponse>> getAll () {
+    public ResponseEntity<List<ProdutoResponse>> getAll() {
         Optional<List<ProdutoDto>> serviceResponse = service.listAll();
-        
+
         if (serviceResponse.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
         List<ProdutoResponse> produtoResponseList = serviceResponse.get().stream()
-        .map(dat -> MAPPER.map(dat, ProdutoResponse.class)).collect(Collectors.toList());
+                .map(dat -> MAPPER.map(dat, ProdutoResponse.class)).collect(Collectors.toList());
 
         return new ResponseEntity<>(produtoResponseList, HttpStatus.OK);
-    
+
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProdutoResponse> getUnique (@PathVariable String id) {
+    public ResponseEntity<ProdutoResponse> getUnique(@PathVariable String id) {
         Optional<ProdutoDto> serviceResponse = service.getUnique(id);
 
         if (serviceResponse.isEmpty()) {
@@ -61,14 +61,14 @@ public class CadastoProdutoController {
     }
 
     @GetMapping("/pesquisar-por-codigo/{codigo}")
-    public Optional<ProdutoDto> getUniqueByCodigo (@PathVariable String codigo) {
-        
+    public Optional<ProdutoDto> getUniqueByCodigo(@PathVariable String codigo) {
+
         return Optional.of(service.getUniqueByCodigo(codigo).get());
     }
 
     @PostMapping("/adicionar")
-    public ResponseEntity<ProdutoResponse> postUnique (@RequestBody @Valid ProdutoRequest produtoReq) {
-        
+    public ResponseEntity<ProdutoResponse> postUnique(@RequestBody @Valid ProdutoRequest produtoReq) {
+
         ProdutoDto produtoDtoReq = MAPPER.map(produtoReq, ProdutoDto.class);
         Optional<ProdutoDto> produtoDtoRes = service.postUnique(produtoDtoReq);
 
@@ -79,11 +79,12 @@ public class CadastoProdutoController {
     }
 
     @PutMapping("/modificar-estoque/{codigo}/{adicionar}/{novaQuantidade}")
-    public Optional<Boolean> putStock (@PathVariable String codigo,@PathVariable boolean adicionar, @PathVariable int novaQuantidade) {
-        Optional<Boolean> serviceResponse = service.putStock(codigo,adicionar,novaQuantidade);
+    public Optional<Boolean> putStock(@PathVariable String codigo, @PathVariable boolean adicionar,
+            @PathVariable int novaQuantidade) {
+        Optional<Boolean> serviceResponse = service.putStock(codigo, adicionar, novaQuantidade);
 
-        if(serviceResponse.isEmpty()) {
-           return Optional.empty();
+        if (serviceResponse.isEmpty()) {
+            return Optional.empty();
         }
 
         return serviceResponse;
@@ -91,22 +92,16 @@ public class CadastoProdutoController {
     }
 
     @PutMapping("alterar/{id}")
-    public ResponseEntity<ProdutoResponse> putProduto(@PathVariable String id, @RequestBody @Valid ProdutoRequest produtoRequest)
-    {
-        ProdutoDto produtoDtoReq = MAPPER.map(produtoRequest, ProdutoDto.class);
-        Optional<ProdutoDto> produtoDtoRes = service.putProduto(id, produtoDtoReq);
-
-        if(produtoDtoRes.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-        ProdutoResponse produtoResponse = MAPPER.map(produtoDtoRes, ProdutoResponse.class);
+    public ResponseEntity<ProdutoResponse> putProduto(@PathVariable String id,
+            @RequestBody @Valid ProdutoRequest produtoRequest) {
+        ProdutoDto produtoDto = MAPPER.map(produtoRequest, ProdutoDto.class);
+        service.putProduto(id, produtoDto);
+        ProdutoResponse produtoResponse = MAPPER.map(produtoDto, ProdutoResponse.class);
         return new ResponseEntity<>(produtoResponse, HttpStatus.OK);
     }
 
     @DeleteMapping("/deletar/{id}")
-    public ResponseEntity <Optional<String>> deleteProduto(@PathVariable String id)
-    {
+    public ResponseEntity<Optional<String>> deleteProduto(@PathVariable String id) {
         return new ResponseEntity<>(service.deleteById(id), HttpStatus.OK);
     }
 }

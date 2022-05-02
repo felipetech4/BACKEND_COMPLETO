@@ -9,15 +9,17 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-@Target( { ElementType.FIELD, ElementType.PARAMETER })
+@Target({ ElementType.FIELD, ElementType.PARAMETER })
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Constraint(validatedBy = DateValidator.class)
 public @interface DateValidation {
-    //error message
+    // error message
     public String message() default "Data invalida";
-    //represents group of constraints
+
+    // represents group of constraints
     public Class<?>[] groups() default {};
-    //represents additional information about annotation
+
+    // represents additional information about annotation
     public Class<? extends Payload>[] payload() default {};
 }

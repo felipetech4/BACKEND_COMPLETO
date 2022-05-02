@@ -13,18 +13,18 @@ import org.springframework.data.mongodb.core.mapping.MongoMappingContext;
 @Configuration
 public class MongoConfig {
 
- @Autowired 
- MongoDatabaseFactory mongoDbFactory;
- @Autowired 
- MongoMappingContext mongoMappingContext;
- 
- @Bean
- public MappingMongoConverter mappingMongoConverter() {
+    @Autowired
+    MongoDatabaseFactory mongoDbFactory;
+    @Autowired
+    MongoMappingContext mongoMappingContext;
 
-  DbRefResolver dbRefResolver = new DefaultDbRefResolver(mongoDbFactory);
-  MappingMongoConverter converter = new MappingMongoConverter(dbRefResolver, mongoMappingContext);
-  converter.setTypeMapper(new DefaultMongoTypeMapper(null));
+    @Bean
+    public MappingMongoConverter mappingMongoConverter() {
 
-  return converter;
- }
+        DbRefResolver dbRefResolver = new DefaultDbRefResolver(mongoDbFactory);
+        MappingMongoConverter converter = new MappingMongoConverter(dbRefResolver, mongoMappingContext);
+        converter.setTypeMapper(new DefaultMongoTypeMapper(null));
+
+        return converter;
+    }
 }
